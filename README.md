@@ -22,7 +22,6 @@ names.
 set with the average of each variable for each activity and each
 subject.
 
-Url =
 <a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones" class="uri">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a>
 
 ------------------------------------------------------------------------

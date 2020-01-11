@@ -8,7 +8,7 @@
 
 # Load Packages and download and unzip data
 library(reshape2)
-library(dplyr)
+library(dplyr) 
 
 fileurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 sourcefile <- "getdata_dataset.zip'"
