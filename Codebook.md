@@ -4,7 +4,7 @@ Code Book
 Identifiers and Categories
 --------------------------
 
-**Subject **  
+**Subject**  
 1-30  
 **Activity**  
 Walking  
