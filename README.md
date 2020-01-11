@@ -1,105 +1,54 @@
-### Introduction
+Getting and Cleaning Data - Course Project
+==========================================
 
-This second programming assignment will require you to write an R
-function that is able to cache potentially time-consuming computations.
-For example, taking the mean of a numeric vector is typically a fast
-operation. However, for a very long vector, it may take too long to
-compute the mean, especially if it has to be computed repeatedly (e.g.
-in a loop). If the contents of a vector are not changing, it may make
-sense to cache the value of the mean so that when we need it again, it
-can be looked up in the cache rather than recomputed. In this
-Programming Assignment you will take advantage of the scoping rules of
-the R language and how they can be manipulated to preserve state inside
-of an R object.
+This was built for the course project of the “Getting and Cleaning Data” course at Coursera.
+--------------------------------------------------------------------------------------------
 
-### Example: Caching the Mean of a Vector
+Goal: Create a tidy data data set with the help of R to analyze results captured in the “Human Activity Recognition Using Smartphones” dataset
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-In this example we introduce the `<<-` operator which can be used to
-assign a value to an object in an environment that is different from the
-current environment. Below are two functions that are used to create a
-special object that stores a numeric vector and caches its mean.
+Requirments for submission
+--------------------------
 
-The first function, `makeVector` creates a special "vector", which is
-really a list containing a function to
+You should create one R script called run\_analysis.R that does the
+following.  
+1.Merges the training and the test sets to create one data set.  
+2. Extracts only the measurements on the mean and standard deviation for
+each measurement.  
+3. Uses descriptive activity names to name the activities in the data
+set. 4. Appropriately labels the data set with descriptive variable
+names.  
+5. From the data set in step 4, creates a second, independent tidy data
+set with the average of each variable for each activity and each
+subject.
 
-1.  set the value of the vector
-2.  get the value of the vector
-3.  set the value of the mean
-4.  get the value of the mean
+Url =
+<a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones" class="uri">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a>
 
-<!-- -->
+------------------------------------------------------------------------
 
-    makeVector <- function(x = numeric()) {
-            m <- NULL
-            set <- function(y) {
-                    x <<- y
-                    m <<- NULL
-            }
-            get <- function() x
-            setmean <- function(mean) m <<- mean
-            getmean <- function() m
-            list(set = set, get = get,
-                 setmean = setmean,
-                 getmean = getmean)
-    }
+*Before you start install follwing packages*  
+library(reshape2) library(dplyr)
 
-The following function calculates the mean of the special "vector"
-created with the above function. However, it first checks to see if the
-mean has already been calculated. If so, it `get`s the mean from the
-cache and skips the computation. Otherwise, it calculates the mean of
-the data and sets the value of the mean in the cache via the `setmean`
-function.
+------------------------------------------------------------------------
 
-    cachemean <- function(x, ...) {
-            m <- x$getmean()
-            if(!is.null(m)) {
-                    message("getting cached data")
-                    return(m)
-            }
-            data <- x$get()
-            m <- mean(data, ...)
-            x$setmean(m)
-            m
-    }
+Steps:  
+1) Make sure to verify the fileurl location the zip file
+<a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip" class="uri">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a>.  
+2) The script will download this file and unzip it. Once you unzip
+verify the folder contents on “UCI HAR Dataset”.  
+3) The scipt will use read.table function load train, test and subject
+data.  
+4) Once loaded all three dataset will be merged.  
+5) Mean and STD will extracted.  
+6) Set appropriate column name and update the labels.  
+7) Finally create a tidydata.txt file using write.file.
 
-### Assignment: Caching the Inverse of a Matrix
+------------------------------------------------------------------------
 
-Matrix inversion is usually a costly computation and there may be some
-benefit to caching the inverse of a matrix rather than computing it
-repeatedly (there are also alternatives to matrix inversion that we will
-not discuss here). Your assignment is to write a pair of functions that
-cache the inverse of a matrix.
+Contents
+--------
 
-Write the following functions:
-
-1.  `makeCacheMatrix`: This function creates a special "matrix" object
-    that can cache its inverse.
-2.  `cacheSolve`: This function computes the inverse of the special
-    "matrix" returned by `makeCacheMatrix` above. If the inverse has
-    already been calculated (and the matrix has not changed), then
-    `cacheSolve` should retrieve the inverse from the cache.
-
-Computing the inverse of a square matrix can be done with the `solve`
-function in R. For example, if `X` is a square invertible matrix, then
-`solve(X)` returns its inverse.
-
-For this assignment, assume that the matrix supplied is always
-invertible.
-
-In order to complete this assignment, you must do the following:
-
-1.  Fork the GitHub repository containing the stub R files at
-    [https://github.com/rdpeng/ProgrammingAssignment2](https://github.com/rdpeng/ProgrammingAssignment2)
-    to create a copy under your own account.
-2.  Clone your forked GitHub repository to your computer so that you can
-    edit the files locally on your own machine.
-3.  Edit the R file contained in the git repository and place your
-    solution in that file (please do not rename the file).
-4.  Commit your completed R file into YOUR git repository and push your
-    git branch to the GitHub repository under your account.
-5.  Submit to Coursera the URL to your GitHub repository that contains
-    the completed R code for the assignment.
-
-### Grading
-
-This assignment will be graded via peer assessment.
+R File = run\_analysis.R  
+Outpile File = Tidydata.txt  
+Codebook.md - Column name definations on tidydata.txt
